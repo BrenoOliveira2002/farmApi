@@ -4,7 +4,7 @@ import { deleteProducerController } from "../controller/producer/delete";
 
 const producerRoutes = Router()
 
-producerRoutes.post("/", async(request: Request, response: Response) => {
+producerRoutes.post("/producer", async(request: Request, response: Response) => {
     const data = request.body
 
     await createProducerController.execute(data)
@@ -28,7 +28,7 @@ producerRoutes.post("/", async(request: Request, response: Response) => {
 // })
 
 
-producerRoutes.delete("/", async(request: Request, response: Response) => {
+producerRoutes.delete("/producer", async(request: Request, response: Response) => {
     const  uuid  = request.query.uuid as string
 
     await deleteProducerController.execute(uuid)

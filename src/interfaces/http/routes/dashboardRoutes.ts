@@ -3,7 +3,7 @@ import { getDashboardController } from "@interfaces/http/controller/dashboard/ge
 
 const dashboardRoutes = Router()
 
-dashboardRoutes.get("/", async(request: Request, response: Response) => {
+dashboardRoutes.get("/dashboard", async(request: Request, response: Response) => {
     const data = request.body
 
     const dashboard = await getDashboardController.execute()
