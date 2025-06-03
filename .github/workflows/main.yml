@@ -1,0 +1,31 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar o código-fonte
+        uses: actions/checkout@v2
+
+      - name: Configurar ambiente Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22.2.0'
+
+      - name: Instalar dependências usando npm
+        run: npm ci
+
+      - name: Logar no Docker Hub
+        run: echo "dckr_pat_IBgw1C2wjmZ_SPdj_EnimSSxZ1M" | docker login -u "brenooliveira20021" --password-stdin
+
+      - name: Construir a imagem Docker
+        run: docker build -t brenooliveira20021/apifarm:latest .
+
+      - name: Enviar a imagem para o Docker Hub
+        run: docker push brenooliveira20021/apifarm:latest
