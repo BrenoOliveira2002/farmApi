@@ -1,11 +1,18 @@
 import { CropDomain } from "../crops/crops";
 import { FarmProps, IFarmDomain } from "./farmInterface";
 
+const allowedStates = [
+  'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA',
+  'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN',
+  'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+];
+
 export class FarmDomain implements IFarmDomain {
   constructor(private props: FarmProps) {
     if (!props.name) throw new Error("Nome da fazenda é obrigatório");
     if (!props.city) throw new Error("Cidade é obrigatória");
     if (!props.state) throw new Error("Estado é obrigatório");
+    if (!allowedStates.includes(props.state)) throw new Error("Estado inválido");
     if (!props.producerUuid) throw new Error("UUID do produtor é obrigatório");
     if (props.totalArea <= 0) throw new Error("Área total deve ser maior que zero");
     if (props.arableArea < 0) throw new Error("Área agricultável não pode ser negativa");
@@ -43,6 +50,7 @@ export class FarmDomain implements IFarmDomain {
 
   updateState(state: string) {
     if (!state) throw new Error("Estado é obrigatório");
+    if (!allowedStates.includes(state)) throw new Error("Estado inválido");
     this.props.state = state;
     this.props.updatedAt = new Date();
   }

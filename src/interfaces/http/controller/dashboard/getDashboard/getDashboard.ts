@@ -1,10 +1,9 @@
-import { CreateProducerDto } from "@dto/dtoProducer";
-import { IGetDashboardControllerProps } from "./dashboardInterface";
+import { IGetDashboardController, IGetDashboardControllerProps } from "./dashboardInterface";
 
-export class GetDashboardController  {
+export class GetDashboardController implements IGetDashboardController  {
   constructor(private props: IGetDashboardControllerProps) {}
 
-  async execute(data: CreateProducerDto) {
+  async execute() {
 
     return await this.props.getDashboard.execute();
 

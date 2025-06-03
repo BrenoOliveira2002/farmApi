@@ -6,7 +6,7 @@ import { ProducerDomain } from "@entities/producer/producer";
 export class PrismaProducerRepository implements IProducerRepository {
   constructor(private prisma: PrismaClient) {}
 
-  async create(data: ProducerDomain): Promise<void> {
+  async create(data: ProducerDomain) {
     await this.prisma.producer.create({
       data: {
         uuid: data.propsData.uuid,
@@ -20,7 +20,7 @@ export class PrismaProducerRepository implements IProducerRepository {
     });
   }
 
-  async update(uuid: string, data: UpdateProducerDto): Promise<void> {
+  async update(uuid: string, data: UpdateProducerDto){
     await this.prisma.producer.update({
       where: { uuid },
       data: {
@@ -32,7 +32,7 @@ export class PrismaProducerRepository implements IProducerRepository {
     });
   }
 
-  async delete(uuid: string): Promise<void> {
+  async delete(uuid: string) {
     await this.prisma.producer.update({
       where: { uuid },
       data: {
@@ -42,7 +42,7 @@ export class PrismaProducerRepository implements IProducerRepository {
     });
   }
 
-  async findByUUID(uuid: string): Promise<ProducerResponseDto | null> {
+  async findByUUID(uuid: string){
     const producer = await this.prisma.producer.findFirst({
       where: { uuid, isDeleted: false }
     });
@@ -60,7 +60,7 @@ export class PrismaProducerRepository implements IProducerRepository {
     };
   }
 
-  async findByCpf(cpf: string): Promise<ProducerResponseDto | null> {
+  async findByCpf(cpf: string){
     const producer = await this.prisma.producer.findFirst({
       where: { cpf, isDeleted: false },
     });
@@ -78,7 +78,7 @@ export class PrismaProducerRepository implements IProducerRepository {
     };
   }
 
-  async findByCnpj(cnpj: string): Promise<ProducerResponseDto | null> {
+  async findByCnpj(cnpj: string){
     const producer = await this.prisma.producer.findFirst({
       where: { cnpj, isDeleted: false }
     });

@@ -27,17 +27,6 @@ producerRoutes.post("/", async(request: Request, response: Response) => {
 //     })
 // })
 
-// producerRoutes.put("/", async(request: Request, response: Response) => {
-//     const data = request.body
-
-//     const producer = await updateProducer.execute(data)
-
-//     return response.status(200).json({
-//         status: 200,
-//         result: "Produtor atualizado com sucesso!",
-//         response: producer
-//     })
-// })
 
 producerRoutes.delete("/", async(request: Request, response: Response) => {
     const  uuid  = request.query.uuid as string

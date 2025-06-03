@@ -1,5 +1,6 @@
 import { FarmDomain } from "@entities/farm/farm";
 import { UpdateFarmDto, FarmResponseDto } from "../../../application/dto/dtoFarm";
+import { IFarmReponseDTO } from "@dto/dtoDashboard";
 
 export interface IFarmRepository {
   create(data: FarmDomain): Promise<void>;
@@ -8,5 +9,5 @@ export interface IFarmRepository {
   findById(uuid: string): Promise<FarmResponseDto | null>;
   findByName(name: string): Promise<FarmResponseDto | null>;
   findAllByProducerUuid(producerUuid: string): Promise<FarmResponseDto[]>;
-  getAllFarm(): Promise<any>
+  getAllFarm(): Promise<IFarmReponseDTO[]>
 }

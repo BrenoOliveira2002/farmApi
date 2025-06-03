@@ -1,12 +1,12 @@
 import { PrismaClient } from '@prisma/client/external';
-import { FarmResponseDto, UpdateFarmDto } from '@dto/dtoFarm';
+import { UpdateFarmDto } from '@dto/dtoFarm';
 import { IFarmRepository } from '../farm/farmInterface';
 import { FarmDomain } from '@entities/farm/farm';
 
 export class FarmRepository implements IFarmRepository {
   constructor(private prismaRepository: PrismaClient) {}
 
-  async create(data: FarmDomain): Promise<void> {
+  async create(data: FarmDomain) {
     await this.prismaRepository.farm.create({
       data: {
         uuid: data.propsData.uuid,
@@ -25,7 +25,7 @@ export class FarmRepository implements IFarmRepository {
   }
 
   async getAllFarm(){ 
-    const a =  await this.prismaRepository.farm.findMany({
+    return await this.prismaRepository.farm.findMany({
       where: { isDeleted: false },
       include: {
         farmCrops: { 
@@ -52,7 +52,7 @@ export class FarmRepository implements IFarmRepository {
     });
   }
 
-  async delete(producerUUID: string): Promise<void> {
+  async delete(producerUUID: string) {
     await this.prismaRepository.farm.updateMany({
       where: { producerUUID },
       data: {
@@ -62,7 +62,7 @@ export class FarmRepository implements IFarmRepository {
     });
   }
 
-  async findById(uuid: string): Promise<FarmResponseDto | null> {
+  async findById(uuid: string) {
     const farm = await this.prismaRepository.farm.findUnique({
       where: { uuid, },
       include: {
@@ -85,7 +85,7 @@ export class FarmRepository implements IFarmRepository {
     };
   }
 
-  async findByName(name: string): Promise<FarmResponseDto | null> {
+  async findByName(name: string){
     const farm = await this.prismaRepository.farm.findFirst({
       where: { name, isDeleted: false }
     });
@@ -104,7 +104,7 @@ export class FarmRepository implements IFarmRepository {
     };
   }
 
-  async findAllByProducerUuid(producerUuid: string): Promise<FarmResponseDto[]> {
+  async findAllByProducerUuid(producerUuid: string) {
     const farms = await this.prismaRepository.farm.findMany({
       where: { producerUUID: producerUuid, isDeleted: false },
       include: {

@@ -2,6 +2,11 @@ import { CreateFarmDto } from "@dto/dtoFarm";
 import { ValidateFieldsToCreateProducer } from "./interface";
 
 const allowedCrops = ['Soja', 'Milho', 'Algodão', 'Café', 'Cana de Açucar'];
+const allowedStates = [
+  'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA',
+  'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN',
+  'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+];
 
 export const validateFieldsToCreateProducer: ValidateFieldsToCreateProducer = (data) => {
     if (!data.cpf && !data.cnpj) {
@@ -51,8 +56,8 @@ function validateFarmData(farm: CreateFarmDto, index: number) {
         throw new Error(`400&${farmPrefix} Cidade é obrigatória`);
     }
 
-    if (!farm.state || typeof farm.state !== 'string' || farm.state.length !== 2) {
-        throw new Error(`400&${farmPrefix} Estado deve ter 2 caracteres`);
+    if (!farm.state || typeof farm.state !== 'string' || farm.state.length !== 2 || !allowedStates.includes(farm.state.toUpperCase()))  {
+            throw new Error(`400&${farmPrefix} Estado "${farm.state}" não é permitido. Permitidos: ${allowedStates.join(', ')}`);
     }
 
     if (!farm.totalArea || typeof farm.totalArea !== 'number' || farm.totalArea <= 0) {
