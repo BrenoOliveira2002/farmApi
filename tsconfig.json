@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "es2021",
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "baseUrl": "./src", 
+    "paths": {
+      "@prisma/client/external": ["../generated/client"],
+      "@database/*": ["infrastructure/database/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@useCase/*": ["useCases/*"],
+      "@middleware/*": ["interfaces/http/middleware/*"],
+      "@utils/*": ["infrastructure/utils/*"],
+      "@config/*": ["infrastructure/config/*"],
+      "@repositories/*": ["domain/repositories/*"],
+      "@lib/*": ["infrastructure/lib/*"],
+      "@dto/*": ["application/dto/*"],
+      "@entities/*": ["domain/entities/*"],
+      "@producer/*": ["application/useCases/producer/*"],
+      "@dashboard/*": ["application/useCases/dashboard/*"],
+      "@routes/*": ["interfaces/http/routes/*"]
+    },
+    "resolveJsonModule": true,
+    "inlineSourceMap": true,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Producer {
+  id        Int      @id @default(autoincrement())
+  uuid      String   @unique @db.VarChar(36)
+  cpf       String?  @db.VarChar(14)
+  cnpj      String?  @db.VarChar(18)
+  name      String   @db.VarChar(45)
+  isDeleted Boolean  @default(false)
+  farms     Farm[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Farm {
+  id             Int        @id @default(autoincrement())
+  uuid           String     @unique @db.VarChar(36)
+  name           String     @db.VarChar(45)
+  city           String     @db.VarChar(45)
+  state          String     @db.VarChar(2)
+  totalArea      Float
+  arableArea     Float
+  vegetationArea Float
+  isDeleted      Boolean    @default(false)
+  producerUUID   String     @db.VarChar(36)
+  producer       Producer   @relation(fields: [producerUUID], references: [uuid])
+  farmCrops      FarmCrop[]
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Crop {
+  id        Int        @id @default(autoincrement())
+  uuid      String     @unique @db.VarChar(36)
+  name      String     @unique @db.VarChar(45)
+  isDeleted Boolean    @default(false)
+  farmCrops FarmCrop[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model FarmCrop {
+  id        Int     @id @default(autoincrement())
+  farmUuid  String  @db.VarChar(36)
+  cropUuid  String  @db.VarChar(36)
+  isDeleted Boolean @default(false)
+  farm      Farm    @relation(fields: [farmUuid], references: [uuid])
+  crop      Crop    @relation(fields: [cropUuid], references: [uuid])
+}
