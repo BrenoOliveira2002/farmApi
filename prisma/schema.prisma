@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgres://postgres:1578466291@api-farm-databse.c7isguyyqfl0.us-east-2.rds.amazonaws.com:5432/apiFarm"
+  url      = "postgresql://admin:Password157751@66.94.124.7:5432/apiFarm?schema=public"
 }
 
 model Producer {
